@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.flutter_music_mate">
    <application
-        android:label="flutter_music_mate"
+        android:label="Music Mate"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
