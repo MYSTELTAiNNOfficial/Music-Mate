@@ -11,6 +11,7 @@ class _MenuPageState extends State<MenuPage> {
   int _selectedIndex = 0;
   static List<Widget> _widgetOptions = <Widget>[
     Home(),
+    Player(), //tes player
     Playlist(),
     Setting(),
   ];
@@ -42,6 +43,10 @@ class _MenuPageState extends State<MenuPage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.play_arrow_rounded),
+            label: 'Play', //testing player
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.search),
