@@ -37,24 +37,26 @@ class _MenuPageState extends State<MenuPage> {
       ** Bottom Navigation Bar Menu
       */
       bottomNavigationBar: BottomNavigationBar(
+        showUnselectedLabels: false,
+        showSelectedLabels: false,
         type: BottomNavigationBarType.fixed,
         backgroundColor: Color.fromARGB(255, 58, 80, 107),
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: 'Home',
+            label: '',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.play_arrow_rounded),
-            label: 'Play', //testing player
+            label: '', //testing player
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Playlist',
+            icon: Icon(Icons.playlist_play_rounded),
+            label: '',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.book),
-            label: 'Setting',
+            icon: Icon(Icons.settings),
+            label: '', //testing player
           ),
         ],
         currentIndex: _selectedIndex,
