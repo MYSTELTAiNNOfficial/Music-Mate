@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">157676318053-b0m7auumt9f1p3cht6caub28ofn7ljju.apps.googleusercontent.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">157676318053</string>
+    <string name="google_api_key" translatable="false">AIzaSyDi9l3Feua87vhBJleLF15_8z9pL_sKLHo</string>
+    <string name="google_app_id" translatable="false">1:157676318053:android:aa0d66523cc9ec0d8d858c</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyDi9l3Feua87vhBJleLF15_8z9pL_sKLHo</string>
+    <string name="google_storage_bucket" translatable="false">musicmate-random.appspot.com</string>
+    <string name="project_id" translatable="false">musicmate-random</string>
+</resources>

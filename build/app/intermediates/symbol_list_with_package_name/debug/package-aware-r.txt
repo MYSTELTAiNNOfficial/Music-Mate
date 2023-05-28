@@ -277,6 +277,7 @@ string common_signin_button_text
 string common_signin_button_text_long
 string copy_toast_msg
 string default_notification_channel_name
+string default_web_client_id
 string exo_download_completed
 string exo_download_description
 string exo_download_downloading
@@ -289,8 +290,14 @@ string exo_download_removing
 string fallback_menu_item_copy_link
 string fallback_menu_item_open_in_browser
 string fallback_menu_item_share_link
+string gcm_defaultSenderId
+string google_api_key
+string google_app_id
+string google_crash_reporting_api_key
+string google_storage_bucket
 string pause_button_content_description
 string play_button_content_description
+string project_id
 string skip_to_next_item_button_content_description
 string skip_to_previous_item_button_content_description
 string status_bar_notification_info_overflow
