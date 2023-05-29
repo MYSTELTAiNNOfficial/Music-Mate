@@ -1,44 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "D:\\Univ\\Flutter Project\\Music-Mate\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-en-rCA\\values-en-rCA.xml",
+            "outputFile": "D:\\Sem6\\MS\\Music-Mate\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-en-rCA\\values-en-rCA.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Alvin Gary\\.gradle\\caches\\transforms-3\\f4cfffda06e242ee8e74c00fc2ee1743\\transformed\\jetified-media2-session-1.2.0\\res\\values-en-rCA\\values-en-rCA.xml",
-                    "from": {
-                        "startLines": "2,3,4,5,6",
-                        "startColumns": "4,4,4,4,4",
-                        "startOffsets": "55,159,256,350,471",
-                        "endColumns": "103,96,93,120,128",
-                        "endOffsets": "154,251,345,466,595"
-                    },
-                    "to": {
-                        "startLines": "3,7,8,9,10",
-                        "startColumns": "4,4,4,4,4",
-                        "startOffsets": "153,562,659,753,874",
-                        "endColumns": "103,96,93,120,128",
-                        "endOffsets": "252,654,748,869,998"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\Alvin Gary\\.gradle\\caches\\transforms-3\\f9d00c0ad06f3737f5584e3a1be6cac9\\transformed\\browser-1.4.0\\res\\values-en-rCA\\values-en-rCA.xml",
-                    "from": {
-                        "startLines": "2,3,4,5",
-                        "startColumns": "4,4,4,4",
-                        "startOffsets": "55,153,250,359",
-                        "endColumns": "97,96,108,98",
-                        "endOffsets": "148,245,354,453"
-                    },
-                    "to": {
-                        "startLines": "2,4,5,6",
-                        "startColumns": "4,4,4,4",
-                        "startOffsets": "55,257,354,463",
-                        "endColumns": "97,96,108,98",
-                        "endOffsets": "148,349,458,557"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\Alvin Gary\\.gradle\\caches\\transforms-3\\5773729296b60bf6d276da843cee9266\\transformed\\core-1.7.0\\res\\values-en-rCA\\values-en-rCA.xml",
+                    "source": "C:\\Users\\Kirihara_Ichijou\\.gradle\\caches\\transforms-3\\dabcda68851483edc65f4d3af38ff3f1\\transformed\\core-1.6.0\\res\\values-en-rCA\\values-en-rCA.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -47,11 +13,21 @@
                         "endOffsets": "151"
                     },
                     "to": {
-                        "startLines": "11",
+                        "startLines": "6",
                         "startColumns": "4",
-                        "startOffsets": "1003",
+                        "startOffsets": "458",
                         "endColumns": "100",
-                        "endOffsets": "1099"
+                        "endOffsets": "554"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\Kirihara_Ichijou\\.gradle\\caches\\transforms-3\\f9d00c0ad06f3737f5584e3a1be6cac9\\transformed\\browser-1.4.0\\res\\values-en-rCA\\values-en-rCA.xml",
+                    "from": {
+                        "startLines": "2,3,4,5",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,153,250,359",
+                        "endColumns": "97,96,108,98",
+                        "endOffsets": "148,245,354,453"
                     }
                 }
             ]
