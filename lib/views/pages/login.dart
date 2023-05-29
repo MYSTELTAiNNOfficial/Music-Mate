@@ -79,13 +79,14 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Color.fromARGB(255, 11, 19, 43),
       body: Stack(
         children: [
           Container(
             width: double.infinity,
             height: double.infinity,
-            padding: EdgeInsets.fromLTRB(24, 48, 24, 0),
+            padding: EdgeInsets.fromLTRB(24, 8, 24, 0),
             child: Center(
               child: isLoading
                   ? CircularProgressIndicator()
@@ -108,8 +109,9 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ),
                           ),
-                          SizedBox(height: 16),
+                          SizedBox(height: 8),
                           TextFormField(
+                            scrollController: ScrollController(),
                             keyboardType: TextInputType.emailAddress,
                             controller: _emailController,
                             decoration: InputDecoration(
@@ -128,7 +130,7 @@ class _LoginPageState extends State<LoginPage> {
                               return null;
                             },
                           ),
-                          SizedBox(height: 16),
+                          SizedBox(height: 24),
                           TextFormField(
                             obscureText: isHide,
                             controller: _passwordController,
@@ -161,7 +163,7 @@ class _LoginPageState extends State<LoginPage> {
                               return null;
                             },
                           ),
-                          SizedBox(height: 16),
+                          SizedBox(height: 8),
                           Container(
                             width: double.infinity,
                             padding: EdgeInsets.fromLTRB(48, 4, 48, 4),
@@ -185,15 +187,39 @@ class _LoginPageState extends State<LoginPage> {
                               child: Text('Login'),
                             ),
                           ),
-                          SizedBox(height: 20),
+                          SizedBox(height: 4),
+                          Align(
+                            alignment: Alignment(0, 0.89),
+                            child: GestureDetector(
+                              onTap: () async {
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => RegisPage(),
+                                  ),
+                                );
+                              },
+                              child: Text(
+                                "Need an account? Sign up",
+                                style: TextStyle(
+                                    color: Color.fromARGB(250, 111, 255, 233),
+                                    fontSize: 14),
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 8),
                           Divider(thickness: 1, color: Colors.white),
-                          SizedBox(height: 20),
+                          SizedBox(height: 8),
                           Container(
                             width: double.infinity,
                             padding: EdgeInsets.fromLTRB(48, 4, 48, 4),
                             child: ElevatedButton.icon(
                               onPressed: () async {
                                 // Handle sign in with Google
+                                await AuthService.signInWithGoogle()
+                                    .then((value) {
+                                  UiToast.toastOk("Welcome Back");
+                                });
                                 Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
