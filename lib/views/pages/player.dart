@@ -1,136 +1,349 @@
 part of 'pages.dart';
 
 class Player extends StatefulWidget {
-  const Player({Key? key}) : super(key: key);
+  final dynamic uri;
+  const Player(this.uri);
 
   @override
   _PlayerState createState() => _PlayerState();
 }
 
 class _PlayerState extends State<Player> {
-  late AudioPlayer _audioPlayer;
+  bool _connected = false;
+	bool _loading = false;
+  CrossfadeState? crossfadeState;
+  late ImageUri? currentTrackImageUri;
 
-  Stream<PositionData> get _positionDataStream =>
-      Rx.combineLatest3<Duration, Duration, Duration?, PositionData>(
-        _audioPlayer.positionStream,
-        _audioPlayer.bufferedPositionStream,
-        _audioPlayer.durationStream,
-        (position, bufferedPosition, duration) =>
-            PositionData(position, bufferedPosition, duration ?? Duration.zero),
+  Future<void> connectToSpotifyRemote() async {
+    try {
+      var result = await SpotifySdk.connectToSpotifyRemote(
+          clientId: Const.CLIENT_ID2, redirectUrl: Const.REDIRECT_URL);
+      UiToast.toastOk(result
+          ? 'connect to spotify successful'
+          : 'connect to spotify failed');
+      if (result) {
+        play(widget.uri);
+      }
+    } on PlatformException catch (e) {
+      UiToast.toastErr("${e.code} ${e.message}");
+    } on MissingPluginException {
+       UiToast.toastErr('not implemented');
+    }
+  }
+
+  Future getPlayerState() async {
+    try {
+      return await SpotifySdk.getPlayerState();
+    } on PlatformException catch (e) {
+      UiToast.toastErr("${e.code} ${e.message}");
+    } on MissingPluginException {
+       UiToast.toastErr('not implemented');
+    }
+  }
+
+  Future<void> toggleRepeat() async {
+    try {
+      await SpotifySdk.toggleRepeat();
+    } on PlatformException catch (e) {
+      UiToast.toastErr("${e.code} ${e.message}");
+    } on MissingPluginException {
+       UiToast.toastErr('not implemented');
+    }
+  }
+
+  Future<void> setRepeatMode(RepeatMode repeatMode) async {
+    try {
+      await SpotifySdk.setRepeatMode(
+        repeatMode: repeatMode,
       );
+    } on PlatformException catch (e) {
+      UiToast.toastErr("${e.code} ${e.message}");
+    } on MissingPluginException {
+       UiToast.toastErr('not implemented');
+    }
+  }
+
+  Future<void> setShuffle(bool shuffle) async {
+    try {
+      await SpotifySdk.setShuffle(
+        shuffle: shuffle,
+      );
+    } on PlatformException catch (e) {
+      UiToast.toastErr("${e.code} ${e.message}");
+    } on MissingPluginException {
+       UiToast.toastErr('not implemented');
+    }
+  }
+
+  Future<void> toggleShuffle() async {
+    try {
+      await SpotifySdk.toggleShuffle();
+    } on PlatformException catch (e) {
+      UiToast.toastErr("${e.code} ${e.message}");
+    } on MissingPluginException {
+       UiToast.toastErr('not implemented');
+    }
+  }
+
+  Future<void> play(uri) async {
+    try {
+      await SpotifySdk.play(spotifyUri: uri);
+    } on PlatformException catch (e) {
+      UiToast.toastErr("${e.code} ${e.message}");
+    } on MissingPluginException {
+       UiToast.toastErr('not implemented');
+    }
+  }
+
+  Future<void> pause() async {
+    try {
+      await SpotifySdk.pause();
+    } on PlatformException catch (e) {
+      UiToast.toastErr("${e.code} ${e.message}");
+    } on MissingPluginException {
+       UiToast.toastErr('not implemented');
+    }
+  }
+
+  Future<void> resume() async {
+    try {
+      await SpotifySdk.resume();
+    } on PlatformException catch (e) {
+      UiToast.toastErr("${e.code} ${e.message}");
+    } on MissingPluginException {
+       UiToast.toastErr('not implemented');
+    }
+  }
+
+  Future<void> skipNext() async {
+    try {
+      await SpotifySdk.skipNext();
+    } on PlatformException catch (e) {
+      UiToast.toastErr("${e.code} ${e.message}");
+    } on MissingPluginException {
+       UiToast.toastErr('not implemented');
+    }
+  }
+
+  Future<void> skipPrevious() async {
+    try {
+      await SpotifySdk.skipPrevious();
+    } on PlatformException catch (e) {
+      UiToast.toastErr("${e.code} ${e.message}");
+    } on MissingPluginException {
+       UiToast.toastErr('not implemented');
+    }
+  }
+
+  Future<void> seekTo() async {
+    try {
+      await SpotifySdk.seekTo(positionedMilliseconds: 20000);
+    } on PlatformException catch (e) {
+      UiToast.toastErr("${e.code} ${e.message}");
+    } on MissingPluginException {
+       UiToast.toastErr('not implemented');
+    }
+  }
 
   @override
   void initState() {
     super.initState();
-    _audioPlayer = AudioPlayer()..setAsset('assets/audio/betelgeuse.mp3');
+		connectToSpotifyRemote();
     //saat pake Url tinggal ganti setAsset jadi setUrl
   }
 
   @override
   void dispose() {
-    _audioPlayer.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color.fromARGB(255, 11, 19, 43),
-      appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          leading: IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.keyboard_arrow_down_rounded)),
-          actions: [
-            IconButton(onPressed: () {}, icon: const Icon(Icons.more_horiz))
-          ]),
-      body: Container(
-        padding: EdgeInsets.only(left: 20, right: 20),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Betelgeuse',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold),
+    return MaterialApp(
+      home: StreamBuilder<ConnectionStatus>(
+        stream: SpotifySdk.subscribeConnectionStatus(),
+        builder: (context, snapshot) {
+          _connected = false;
+          var data = snapshot.data;
+          if (data != null) {
+            _connected = data.connected;
+          }
+          return Scaffold(
+            appBar: AppBar(
+              title: const Text('Player'),
             ),
-            //nanti ganti variabel nama
-
-            StreamBuilder<PositionData>(
-              stream: _positionDataStream,
-              builder: (context, snapshot) {
-                final positionData = snapshot.data;
-                return ProgressBar(
-                  barHeight: 8,
-                  baseBarColor: Colors.grey[400],
-                  bufferedBarColor: Colors.grey,
-                  progressBarColor: Colors.white,
-                  thumbColor: Colors.white,
-                  timeLabelTextStyle: const TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.w600),
-                  progress: positionData?.position ?? Duration.zero,
-                  buffered: positionData?.bufferedPosition ?? Duration.zero,
-                  total: positionData?.duration ?? Duration.zero,
-                  onSeek: _audioPlayer.seek,
-                );
-              },
-            ),
-            const SizedBox(height: 20),
-            Controls(audioPlayer: _audioPlayer)
-          ],
-        ),
+            body: _sampleFlowWidget(context)
+          );
+        },
       ),
     );
   }
-}
 
-class PositionData {
-  const PositionData(
-    this.position,
-    this.bufferedPosition,
-    this.duration,
-  );
 
-  final Duration position;
-  final Duration bufferedPosition;
-  final Duration duration;
-}
+  Widget _sampleFlowWidget(BuildContext context2) {
+    return Stack(
+      children: [
+        ListView(
+          padding: const EdgeInsets.all(8),
+          children: [
+            const Divider(),
+            _connected
+                ? _buildPlayerStateWidget()
+                : const Center(
+                    child: Text('Not connected'),
+                  )
+          ],
+        ),
+        _loading
+            ? Container(
+                color: Colors.black12,
+                child: const Center(child: CircularProgressIndicator()))
+            : const SizedBox(),
+      ],
+    );
+  }
 
-class Controls extends StatelessWidget {
-  const Controls({super.key, required this.audioPlayer});
-
-  final AudioPlayer audioPlayer;
-
-  @override
-  Widget build(BuildContext context) {
+  Widget _buildPlayerStateWidget() {
     return StreamBuilder<PlayerState>(
-      stream: audioPlayer.playerStateStream,
-      builder: (context, snapshot) {
-        final playerState = snapshot.data;
-        final processingState = playerState?.processingState;
-        final playing = playerState?.playing;
-        if (!(playing ?? false)) {
-          return IconButton(
-              onPressed: audioPlayer.play,
-              iconSize: 80,
-              color: Colors.white,
-              icon: const Icon(Icons.play_arrow_rounded));
-        } else if (processingState != ProcessingState.completed) {
-          return IconButton(
-              onPressed: audioPlayer.pause,
-              iconSize: 80,
-              color: Colors.white,
-              icon: const Icon(Icons.pause_rounded));
+      stream: SpotifySdk.subscribePlayerState(),
+      builder: (BuildContext context, AsyncSnapshot<PlayerState> snapshot) {
+        var track = snapshot.data?.track;
+        currentTrackImageUri = track?.imageUri;
+        var playerState = snapshot.data;
+
+        if (playerState == null || track == null) {
+          return Center(
+            child: Container(),
+          );
         }
-        return const Icon(
-          Icons.play_arrow_rounded,
-          size: 80,
-          color: Colors.white,
+
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                ElevatedButton(
+                  onPressed: skipPrevious,
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.all(20),
+                  ),
+                  child: Icon(Icons.skip_previous),
+                ),
+                playerState.isPaused
+                    ? ElevatedButton(
+                        onPressed: resume,
+                        style: ElevatedButton.styleFrom(
+                          padding: EdgeInsets.all(20),
+                        ),
+                        child: Icon(Icons.play_arrow),
+                      )
+                    : ElevatedButton(
+                        onPressed: pause,
+                        style: ElevatedButton.styleFrom(
+                          padding: EdgeInsets.all(20),
+                        ),
+                        child: Icon(Icons.pause),
+                      ),
+                ElevatedButton(
+                  onPressed: skipNext,
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.all(20),
+                  ),
+                  child: Icon(Icons.skip_next),
+                ),
+              ],
+            ),
+            Text(
+                '${track.name} by ${track.artist.name} from the album ${track.album.name}'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                    'Progress: ${playerState.playbackPosition}ms/${track.duration}ms'),
+              ],
+            ),
+            _connected
+                ? spotifyImageWidget(track.imageUri)
+                : const Text('Connect to see an image...'),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Divider(),
+                const Text(
+                  'Set Shuffle and Repeat',
+                  style: TextStyle(fontSize: 16),
+                ),
+                Row(
+                  children: [
+                    const Text(
+                      'Repeat Mode:',
+                    ),
+                    DropdownButton<RepeatMode>(
+                      value: RepeatMode
+                          .values[playerState.playbackOptions.repeatMode.index],
+                      items: const [
+                        DropdownMenuItem(
+                          value: RepeatMode.off,
+                          child: Text('off'),
+                        ),
+                        DropdownMenuItem(
+                          value: RepeatMode.track,
+                          child: Text('track'),
+                        ),
+                        DropdownMenuItem(
+                          value: RepeatMode.context,
+                          child: Text('context'),
+                        ),
+                      ],
+                      onChanged: (repeatMode) => setRepeatMode(repeatMode!),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    const Text('Set shuffle: '),
+                    Switch.adaptive(
+                      value: playerState.playbackOptions.isShuffling,
+                      onChanged: (bool shuffle) => setShuffle(
+                        shuffle,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ],
         );
       },
     );
+  }
+
+
+  Widget spotifyImageWidget(ImageUri image) {
+    return FutureBuilder(
+        future: SpotifySdk.getImage(
+          imageUri: image,
+          dimension: ImageDimension.large,
+        ),
+        builder: (BuildContext context, AsyncSnapshot<Uint8List?> snapshot) {
+          if (snapshot.hasData) {
+            return Image.memory(snapshot.data!);
+          } else if (snapshot.hasError) {
+            UiToast.toastErr(snapshot.error.toString());
+            return SizedBox(
+              width: ImageDimension.large.value.toDouble(),
+              height: ImageDimension.large.value.toDouble(),
+              child: const Center(child: Text('Error getting image')),
+            );
+          } else {
+            return SizedBox(
+              width: ImageDimension.large.value.toDouble(),
+              height: ImageDimension.large.value.toDouble(),
+              child: const Center(child: Text('Getting image...')),
+            );
+          }
+        });
   }
 }

@@ -1,0 +1,28 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="de.minimalme.spotify_sdk" >
+4
+5    <uses-sdk
+6        android:minSdkVersion="16"
+6-->C:\Users\Kirihara_Ichijou\AppData\Local\Pub\Cache\hosted\pub.dev\spotify_sdk-2.3.1\android\src\main\AndroidManifest.xml
+7        android:targetSdkVersion="16" />
+7-->C:\Users\Kirihara_Ichijou\AppData\Local\Pub\Cache\hosted\pub.dev\spotify_sdk-2.3.1\android\src\main\AndroidManifest.xml
+8
+9    <queries>
+9-->C:\Users\Kirihara_Ichijou\AppData\Local\Pub\Cache\hosted\pub.dev\spotify_sdk-2.3.1\android\src\main\AndroidManifest.xml:8:5-10:15
+10        <package android:name="com.spotify.music" />
+10-->C:\Users\Kirihara_Ichijou\AppData\Local\Pub\Cache\hosted\pub.dev\spotify_sdk-2.3.1\android\src\main\AndroidManifest.xml:9:9-53
+10-->C:\Users\Kirihara_Ichijou\AppData\Local\Pub\Cache\hosted\pub.dev\spotify_sdk-2.3.1\android\src\main\AndroidManifest.xml:9:18-50
+11    </queries>
+12
+13    <application>
+13-->C:\Users\Kirihara_Ichijou\AppData\Local\Pub\Cache\hosted\pub.dev\spotify_sdk-2.3.1\android\src\main\AndroidManifest.xml:3:5-7:19
+14        <activity
+14-->C:\Users\Kirihara_Ichijou\AppData\Local\Pub\Cache\hosted\pub.dev\spotify_sdk-2.3.1\android\src\main\AndroidManifest.xml:4:9-6:75
+15            android:name="com.spotify.sdk.android.authentication.LoginActivity"
+15-->C:\Users\Kirihara_Ichijou\AppData\Local\Pub\Cache\hosted\pub.dev\spotify_sdk-2.3.1\android\src\main\AndroidManifest.xml:5:13-80
+16            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+16-->C:\Users\Kirihara_Ichijou\AppData\Local\Pub\Cache\hosted\pub.dev\spotify_sdk-2.3.1\android\src\main\AndroidManifest.xml:6:13-72
+17    </application>
+18
+19</manifest>

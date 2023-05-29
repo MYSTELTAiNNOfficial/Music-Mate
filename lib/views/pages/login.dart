@@ -84,9 +84,6 @@ class _LoginPageState extends State<LoginPage> {
                       padding: EdgeInsets.fromLTRB(48, 4, 48, 4),
                       child: ElevatedButton.icon(
                         onPressed: () async {
-                          // await AuthService.signInWithGoogle().then((value) {
-                          //   UiToast.toastOk("Welcome Back");
-                          // });
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(

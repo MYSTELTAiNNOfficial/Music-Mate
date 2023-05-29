@@ -13,19 +13,21 @@
          to allow setting breakpoints, to provide hot reload, etc.
     -->
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <queries>
+        <package android:name="com.spotify.music" />
+        <package android:name="com.spotify.music.debug" />
+        <package android:name="com.spotify.music.canary" />
+        <package android:name="com.spotify.music.partners" />
+
         <intent>
-            <action android:name="android.media.browse.MediaBrowserService" />
-        </intent>
-        <intent>
-            <action android:name="androidx.media2.session.MediaSessionService" />
-        </intent>
-        <intent>
-            <action android:name="androidx.media2.session.MediaLibraryService" />
+            <action android:name="com.spotify.sso.action.START_AUTH_FLOW" />
+
+            <data android:mimeType="text/plain" />
         </intent>
     </queries>
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name="android.app.Application"
@@ -82,13 +84,9 @@
                 android:value="com.google.firebase.components.ComponentRegistrar" />
         </service>
 
-        <uses-library
-            android:name="androidx.window.extensions"
-            android:required="false" />
-        <uses-library
-            android:name="androidx.window.sidecar"
-            android:required="false" />
-
+        <activity
+            android:name="com.spotify.sdk.android.authentication.LoginActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
             android:name="com.google.firebase.auth.internal.GenericIdpActivity"
             android:excludeFromRecents="true"
@@ -126,6 +124,13 @@
             </intent-filter>
         </activity>
 
+        <uses-library
+            android:name="androidx.window.extensions"
+            android:required="false" />
+        <uses-library
+            android:name="androidx.window.sidecar"
+            android:required="false" />
+
         <provider
             android:name="com.google.firebase.provider.FirebaseInitProvider"
             android:authorities="com.example.flutter_music_mate.firebaseinitprovider"
@@ -156,6 +161,11 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
+        <activity
+            android:name="com.spotify.sdk.android.auth.LoginActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+        </activity>
     </application>
 
 </manifest>
