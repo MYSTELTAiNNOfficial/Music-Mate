@@ -17,18 +17,13 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
   }
 
   _loadWidget() async {
-    var _duration = new Duration(seconds: SplashDelay);
-    return Timer(_duration, navigationPage);
+    var duration = Duration(seconds: SplashDelay);
+    return Timer(duration, navigationPage);
   }
 
   void navigationPage() async {
     Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => LoginPage()));
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 
   @override
