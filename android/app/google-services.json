@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "157676318053",
+    "project_id": "musicmate-random",
+    "storage_bucket": "musicmate-random.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:157676318053:android:aa0d66523cc9ec0d8d858c",
+        "android_client_info": {
+          "package_name": "com.example.flutter_music_mate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "157676318053-b0m7auumt9f1p3cht6caub28ofn7ljju.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDi9l3Feua87vhBJleLF15_8z9pL_sKLHo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "157676318053-b0m7auumt9f1p3cht6caub28ofn7ljju.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

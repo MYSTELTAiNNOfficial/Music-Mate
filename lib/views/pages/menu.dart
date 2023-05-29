@@ -9,7 +9,7 @@ class MenuPage extends StatefulWidget {
 
 class _MenuPageState extends State<MenuPage> {
   int _selectedIndex = 0;
-  static List<Widget> _widgetOptions = <Widget>[
+  static final List<Widget> _widgetOptions = <Widget>[
     Home(),
     Player(), //tes player
     Playlist(),
