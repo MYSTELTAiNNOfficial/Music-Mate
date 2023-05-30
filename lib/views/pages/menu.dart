@@ -11,7 +11,7 @@ class _MenuPageState extends State<MenuPage> {
   int _selectedIndex = 0;
   static final List<Widget> _widgetOptions = <Widget>[
     Home(),
-    Player(), //tes player
+    Player(""), //tes player
     Playlist(),
     Setting(),
   ];

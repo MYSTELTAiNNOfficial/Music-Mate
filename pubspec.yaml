@@ -44,10 +44,9 @@ dependencies:
   font_awesome_flutter: ^10.4.0
   google_sign_in: ^6.1.0
   http: ^0.13.6
-  just_audio: ^0.9.33
-  just_audio_background: ^0.0.1-beta.10
   lazy_loading_list: ^1.0.1
   rxdart: ^0.27.7
+  spotify_sdk: ^2.3.1
 
 dev_dependencies:
   flutter_lints: ^2.0.0
