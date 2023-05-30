@@ -34,3 +34,4 @@ part 'setting.dart';
 part 'player.dart';
 part 'tracklist.dart';
 part 'register.dart';
+part 'signup.dart';

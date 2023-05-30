@@ -4,8 +4,7 @@ class SpotifyService {
   static Future<SpotifyBearer> getAccessToken() async {
     var url = Uri.parse("https://accounts.spotify.com/api/token");
     var body = {
-      "grant_type": "refresh_token",
-      "refresh_token": Const.REFRESH_TOKEN
+      "grant_type": "client_credentials",
     };
     var response = await http.post(url, body: body, headers: {
       "Content-Type": "application/x-www-form-urlencoded",
