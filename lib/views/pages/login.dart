@@ -1,7 +1,7 @@
 part of 'pages.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -114,14 +114,21 @@ class _LoginPageState extends State<LoginPage> {
                             scrollController: ScrollController(),
                             keyboardType: TextInputType.emailAddress,
                             controller: _emailController,
+                            style: TextStyle(color: Colors.white),
                             decoration: InputDecoration(
                               labelText: 'Email',
-                              prefixIcon: Icon(Icons.email),
+                              prefixIcon: Icon(Icons.email, color: Colors.cyan),
                               filled: true,
-                              fillColor: Colors.white,
+                              fillColor: Colors.black,
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8),
+                                borderSide: BorderSide.none,
                               ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                                borderSide: BorderSide(color: Colors.cyan),
+                              ),
+                              labelStyle: TextStyle(color: Colors.grey),
                             ),
                             validator: (value) {
                               if (value!.isEmpty) {
@@ -134,9 +141,10 @@ class _LoginPageState extends State<LoginPage> {
                           TextFormField(
                             obscureText: isHide,
                             controller: _passwordController,
+                            style: TextStyle(color: Colors.white),
                             decoration: InputDecoration(
                               labelText: 'Password',
-                              prefixIcon: Icon(Icons.lock),
+                              prefixIcon: Icon(Icons.lock, color: Colors.cyan),
                               suffixIcon: IconButton(
                                 icon: Icon(
                                   isHide
@@ -151,10 +159,16 @@ class _LoginPageState extends State<LoginPage> {
                                 },
                               ),
                               filled: true,
-                              fillColor: Colors.white,
+                              fillColor: Colors.black,
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8),
+                                borderSide: BorderSide.none,
                               ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                                borderSide: BorderSide(color: Colors.cyan),
+                              ),
+                              labelStyle: TextStyle(color: Colors.grey),
                             ),
                             validator: (value) {
                               if (value!.isEmpty) {
@@ -195,7 +209,7 @@ class _LoginPageState extends State<LoginPage> {
                                 Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => RegisPage(),
+                                    builder: (context) => SignupPage(),
                                   ),
                                 );
                               },
