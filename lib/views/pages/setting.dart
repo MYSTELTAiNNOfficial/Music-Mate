@@ -25,11 +25,14 @@ class _SettingState extends State<Setting> {
                         Container(
                           padding: EdgeInsets.only(left: 4),
                           alignment: Alignment.center,
-                          child: Text("My Profile",
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 111, 255, 233),
-                                  fontSize: 28,
-                                  fontWeight: FontWeight.w900)),
+                          child: Text(
+                            "My Profile",
+                            style: TextStyle(
+                              color: Color.fromARGB(255, 111, 255, 233),
+                              fontSize: 28,
+                              fontWeight: FontWeight.w900,
+                            ),
+                          ),
                         ),
                         SizedBox(height: 36),
                         CircleAvatar(
@@ -38,7 +41,8 @@ class _SettingState extends State<Setting> {
                           child: CircleAvatar(
                             radius: 50,
                             backgroundImage: NetworkImage(
-                                "${AuthService.auth.currentUser!.photoURL}"),
+                              "${AuthService.auth.currentUser!.photoURL}",
+                            ),
                           ),
                         ),
                         SizedBox(
@@ -47,11 +51,14 @@ class _SettingState extends State<Setting> {
                         Container(
                           padding: EdgeInsets.only(left: 4),
                           alignment: Alignment.centerLeft,
-                          child: Text("Username",
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 111, 255, 233),
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold)),
+                          child: Text(
+                            "Username",
+                            style: TextStyle(
+                              color: Color.fromARGB(255, 111, 255, 233),
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
                         SizedBox(
                           height: 8,
@@ -62,13 +69,16 @@ class _SettingState extends State<Setting> {
                           decoration: InputDecoration(
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: Colors.cyanAccent, width: 5),
+                                color: Colors.cyanAccent,
+                                width: 5,
+                              ),
                             ),
                             border: OutlineInputBorder(),
-                            labelStyle:
-                                TextStyle(color: Colors.white, fontSize: 20),
-                            labelText:
-                                "${AuthService.auth.currentUser!.displayName}",
+                            labelStyle: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                            ),
+                            labelText: AuthService.username ?? '',
                           ),
                         ),
                         SizedBox(
@@ -77,11 +87,14 @@ class _SettingState extends State<Setting> {
                         Container(
                           padding: EdgeInsets.only(left: 4),
                           alignment: Alignment.centerLeft,
-                          child: Text("Email",
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 111, 255, 233),
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold)),
+                          child: Text(
+                            "Email",
+                            style: TextStyle(
+                              color: Color.fromARGB(255, 111, 255, 233),
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
                         SizedBox(
                           height: 8,
@@ -90,47 +103,54 @@ class _SettingState extends State<Setting> {
                           readOnly: true,
                           enabled: false,
                           decoration: InputDecoration(
-                            enabledBorder: const OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  color: Colors.cyanAccent, width: 2),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.cyanAccent,
+                                width: 2,
+                              ),
                             ),
                             border: OutlineInputBorder(),
-                            labelStyle:
-                                TextStyle(color: Colors.white, fontSize: 20),
-                            labelText: "${AuthService.auth.currentUser!.email}",
+                            labelStyle: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                            ),
+                            labelText:
+                                AuthService.auth.currentUser!.email ?? '',
                           ),
                         ),
                         SizedBox(height: 24),
                         Container(
                           width: 300,
                           child: ElevatedButton(
-                              onPressed: () async {
-                                // signOut();
-                                await AuthService.SignOut().then((value) {
-                                  if (value) {
-                                    Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => LoginPage()));
-                                    UiToast.toastOk("Logout successful!");
-                                  } else {
-                                    UiToast.toastErr("Logout failed!");
-                                  }
-                                });
-                              },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.cyanAccent,
-                                elevation: 0,
-                                textStyle: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                padding: EdgeInsets.fromLTRB(24, 12, 24, 12),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
+                            onPressed: () async {
+                              await AuthService.signOut().then((value) {
+                                if (value) {
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => LoginPage(),
+                                    ),
+                                  );
+                                  UiToast.toastOk("Logout successful!");
+                                } else {
+                                  UiToast.toastErr("Logout failed!");
+                                }
+                              });
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.cyanAccent,
+                              elevation: 0,
+                              textStyle: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
                               ),
-                              child: Text("Log Out")),
+                              padding: EdgeInsets.fromLTRB(24, 12, 24, 12),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                            child: Text("Log Out"),
+                          ),
                         ),
                       ],
                     ),
@@ -144,10 +164,11 @@ class _SettingState extends State<Setting> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        //Icon masih sebagai placeholder untuk user image nanti
-                        Icon(Icons.person_rounded,
-                            color: Color.fromARGB(255, 111, 255, 233),
-                            size: 100.0),
+                        Icon(
+                          Icons.person_rounded,
+                          color: Color.fromARGB(255, 111, 255, 233),
+                          size: 100.0,
+                        ),
                         SizedBox(
                           height: 16,
                         ),
@@ -175,25 +196,29 @@ class _SettingState extends State<Setting> {
                           width: double.infinity,
                           child: ElevatedButton.icon(
                             onPressed: () async {
-                              await AuthService.signInWithGoogle()
-                                  .then((value) {
-                                UiToast.toastOk("Welcome back");
-                              });
+                              await AuthService.signInWithGoogle().then(
+                                (value) {
+                                  UiToast.toastOk("Welcome back");
+                                },
+                              );
                               Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => MenuPage()));
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => MenuPage(),
+                                ),
+                              );
                             },
                             style: ElevatedButton.styleFrom(
-                                backgroundColor:
-                                    Color.fromARGB(255, 111, 255, 233),
-                                elevation: 3,
-                                textStyle: TextStyle(fontSize: 16),
-                                shadowColor: Colors.cyanAccent,
-                                padding: EdgeInsets.fromLTRB(24, 10, 24, 10),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                )),
+                              backgroundColor:
+                                  Color.fromARGB(255, 111, 255, 233),
+                              elevation: 3,
+                              textStyle: TextStyle(fontSize: 16),
+                              shadowColor: Colors.cyanAccent,
+                              padding: EdgeInsets.fromLTRB(24, 10, 24, 10),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
                             label: Text(
                               'Login Now',
                               style: TextStyle(

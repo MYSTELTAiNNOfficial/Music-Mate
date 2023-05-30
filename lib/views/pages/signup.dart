@@ -11,7 +11,10 @@ class _SignupPageState extends State<SignupPage> {
   final GlobalKey<FormState> _signupKey = GlobalKey<FormState>();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
   bool isHide = true;
   bool isLoading = false;
   String errorMessage = '';
@@ -52,7 +55,9 @@ class _SignupPageState extends State<SignupPage> {
   void dispose() {
     super.dispose();
     _emailController.dispose();
+    _usernameController.dispose();
     _passwordController.dispose();
+    _confirmPasswordController.dispose();
   }
 
   @override
@@ -89,16 +94,42 @@ class _SignupPageState extends State<SignupPage> {
                           ),
                           SizedBox(height: 16),
                           TextFormField(
-                            keyboardType: TextInputType.emailAddress,
-                            controller: _emailController,
+                            controller: _usernameController,
+                            style: TextStyle(color: Colors.white),
                             decoration: InputDecoration(
-                              labelText: 'Email',
-                              prefixIcon: Icon(Icons.email),
+                              labelText: 'Username',
+                              prefixIcon:
+                                  Icon(Icons.person, color: Colors.cyan),
                               filled: true,
-                              fillColor: Colors.white,
+                              fillColor: Colors.black,
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8),
+                                borderSide: BorderSide.none,
                               ),
+                              labelStyle: TextStyle(color: Colors.grey),
+                            ),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please enter your username';
+                              }
+                              return null;
+                            },
+                          ),
+                          SizedBox(height: 16),
+                          TextFormField(
+                            keyboardType: TextInputType.emailAddress,
+                            controller: _emailController,
+                            style: TextStyle(color: Colors.white),
+                            decoration: InputDecoration(
+                              labelText: 'Email',
+                              prefixIcon: Icon(Icons.email, color: Colors.cyan),
+                              filled: true,
+                              fillColor: Colors.black,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                                borderSide: BorderSide.none,
+                              ),
+                              labelStyle: TextStyle(color: Colors.grey),
                             ),
                             validator: (value) {
                               if (value!.isEmpty) {
@@ -111,9 +142,10 @@ class _SignupPageState extends State<SignupPage> {
                           TextFormField(
                             obscureText: isHide,
                             controller: _passwordController,
+                            style: TextStyle(color: Colors.white),
                             decoration: InputDecoration(
                               labelText: 'Password',
-                              prefixIcon: Icon(Icons.lock),
+                              prefixIcon: Icon(Icons.lock, color: Colors.cyan),
                               suffixIcon: IconButton(
                                 icon: Icon(
                                   isHide
@@ -128,14 +160,55 @@ class _SignupPageState extends State<SignupPage> {
                                 },
                               ),
                               filled: true,
-                              fillColor: Colors.white,
+                              fillColor: Colors.black,
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8),
+                                borderSide: BorderSide.none,
                               ),
+                              labelStyle: TextStyle(color: Colors.grey),
                             ),
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return 'Please enter your password';
+                              }
+                              return null;
+                            },
+                          ),
+                          SizedBox(height: 16),
+                          TextFormField(
+                            obscureText: isHide,
+                            controller: _confirmPasswordController,
+                            style: TextStyle(color: Colors.white),
+                            decoration: InputDecoration(
+                              labelText: 'Confirm Password',
+                              prefixIcon: Icon(Icons.lock, color: Colors.cyan),
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  isHide
+                                      ? Icons.visibility_off
+                                      : Icons.visibility,
+                                  color: Colors.grey,
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    isHide = !isHide;
+                                  });
+                                },
+                              ),
+                              filled: true,
+                              fillColor: Colors.black,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                                borderSide: BorderSide.none,
+                              ),
+                              labelStyle: TextStyle(color: Colors.grey),
+                            ),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please confirm your password';
+                              }
+                              if (value != _passwordController.text) {
+                                return 'Passwords do not match';
                               }
                               return null;
                             },
@@ -156,8 +229,7 @@ class _SignupPageState extends State<SignupPage> {
                             child: ElevatedButton(
                               onPressed: _signup,
                               style: ElevatedButton.styleFrom(
-                                backgroundColor:
-                                    Color.fromARGB(255, 91, 192, 190),
+                                primary: Color.fromARGB(255, 91, 192, 190),
                                 elevation: 3,
                                 shadowColor: Colors.cyan,
                                 textStyle: TextStyle(
@@ -170,7 +242,7 @@ class _SignupPageState extends State<SignupPage> {
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                               ),
-                              child: Text('Signup'),
+                              child: Text('Register'),
                             ),
                           ),
                         ],

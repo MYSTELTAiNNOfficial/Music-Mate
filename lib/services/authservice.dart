@@ -2,23 +2,30 @@ part of 'services.dart';
 
 class AuthService {
   static FirebaseAuth auth = FirebaseAuth.instance;
+  static String? username;
 
   static Future<UserCredential> signInWithGoogle() async {
-    Firebase.initializeApp();
+    await Firebase.initializeApp();
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
     final GoogleSignInAuthentication googleAuth =
         await googleUser!.authentication;
 
     final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
 
-    return await auth.signInWithCredential(credential);
+    final userCredential = await auth.signInWithCredential(credential);
+
+    username = userCredential.user!.displayName;
+
+    return userCredential;
   }
 
-  static Future SignOut() async {
-    Firebase.initializeApp();
-    await FirebaseAuth.instance.signOut();
+  static Future<bool> signOut() async {
+    await auth.signOut();
     await GoogleSignIn().signOut();
+    username = null;
     return true;
   }
 }
