@@ -1,14 +1,14 @@
-#Tue May 30 13:33:16 ICT 2023
+#Sun Jun 04 21:26:06 ICT 2023
 path.4=classes2.dex
 path.3=1/classes.dex
 path.2=0/classes.dex
 path.1=0/classes.dex
 path.0=classes.dex
-base.4=D\:\\College\\Android\\Flutter\\music-mate\\build\\app\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes2.dex
-base.3=D\:\\College\\Android\\Flutter\\music-mate\\build\\app\\intermediates\\dex\\debug\\mergeProjectDexDebug\\1\\classes.dex
-base.2=D\:\\College\\Android\\Flutter\\music-mate\\build\\app\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
-base.1=D\:\\College\\Android\\Flutter\\music-mate\\build\\app\\intermediates\\dex\\debug\\mergeLibDexDebug\\0\\classes.dex
-base.0=D\:\\College\\Android\\Flutter\\music-mate\\build\\app\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
+base.4=D\:\\Gavin\\Kuliah\\Semester 6\\Microservices\\Music-Mate\\build\\app\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes2.dex
+base.3=D\:\\Gavin\\Kuliah\\Semester 6\\Microservices\\Music-Mate\\build\\app\\intermediates\\dex\\debug\\mergeProjectDexDebug\\1\\classes.dex
+base.2=D\:\\Gavin\\Kuliah\\Semester 6\\Microservices\\Music-Mate\\build\\app\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
+base.1=D\:\\Gavin\\Kuliah\\Semester 6\\Microservices\\Music-Mate\\build\\app\\intermediates\\dex\\debug\\mergeLibDexDebug\\0\\classes.dex
+base.0=D\:\\Gavin\\Kuliah\\Semester 6\\Microservices\\Music-Mate\\build\\app\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
 renamed.3=classes4.dex
 renamed.2=classes3.dex
 renamed.1=classes2.dex

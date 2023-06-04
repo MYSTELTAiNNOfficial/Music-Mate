@@ -21,14 +21,13 @@ class _HomeState extends State<Home> {
     return token;
   }
 
-	Future<void> connectToSpotifyRemote() async {
+  Future<void> connectToSpotifyRemote() async {
     try {
       setState(() {
         isLoading = true;
       });
       var result = await SpotifySdk.connectToSpotifyRemote(
-          clientId: Const.CLIENT_ID2,
-          redirectUrl: Const.REDIRECT_URL);
+          clientId: Const.CLIENT_ID2, redirectUrl: Const.REDIRECT_URL);
       UiToast.toastOk(result
           ? 'connect to spotify successful'
           : 'connect to spotify failed');
@@ -48,7 +47,6 @@ class _HomeState extends State<Home> {
     }
   }
 
-
   Future<List<SpotifyAlbum>> getNewRelease() async {
     print(token.accessToken);
     await SpotifyService.getNewReleaseAlbum(token.accessToken).then((value) {
@@ -58,7 +56,7 @@ class _HomeState extends State<Home> {
         });
       }
     });
-		connectToSpotifyRemote();
+    connectToSpotifyRemote();
     return newRelease;
   }
 
@@ -78,6 +76,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Color.fromARGB(255, 11, 19, 43),
         appBar: AppBar(
           title: Text('Home'),
         ),
@@ -88,9 +87,15 @@ class _HomeState extends State<Home> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("data",
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                  Container(
+                    padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                    child: Text("Popular Albums",
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            decoration: TextDecoration.underline)),
+                  ),
                   SizedBox(
                     height: 200,
                     child: newRelease.isEmpty

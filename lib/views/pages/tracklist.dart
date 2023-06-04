@@ -53,6 +53,7 @@ class _TrackListState extends State<TrackList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 11, 19, 43),
       appBar: AppBar(
         title: Text('Tracklist'),
       ),
