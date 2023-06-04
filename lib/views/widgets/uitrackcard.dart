@@ -21,7 +21,7 @@ class _TracklistCardState extends State<TracklistCard> {
   Widget build(BuildContext context) {
     SpotifyTracklist dataTracklist = widget.dataTracklist;
     return Card(
-      color: Colors.lightBlue,
+      color: Color.fromARGB(255, 91, 192, 190),
       margin: const EdgeInsets.fromLTRB(16, 8, 20, 8),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
       elevation: 2,
@@ -39,7 +39,10 @@ class _TracklistCardState extends State<TracklistCard> {
         child: ListTile(
           contentPadding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
           title: Text("${dataTracklist.name}",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                  color: Color.fromARGB(255, 11, 19, 43))),
           subtitle: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
