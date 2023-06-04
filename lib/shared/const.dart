@@ -7,6 +7,5 @@ class Const {
   static String REFRESH_TOKEN =
       "AQCWpVqbqNvSNnPWlqO9KQtsPd3RQgUqr2s2ZUYgNoznUXnjs0miQD2WSSN7jKp7yEX8e4OhAc1r-EPxz4DkdcyRQUIZdfknqjmdF2bVgjr_rR9TtOYHYulznohBt7uJG_M";
   static String REDIRECT_URL = "https://musicmate.mysteltainn.com/callback";
-	static String CLIENT_ID2 =
-			"22e622b5357f4ab69379fd79189d7002";
+  static String CLIENT_ID2 = "22e622b5357f4ab69379fd79189d7002";
 }

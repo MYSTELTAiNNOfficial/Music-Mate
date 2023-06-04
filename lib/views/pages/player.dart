@@ -10,7 +10,7 @@ class Player extends StatefulWidget {
 
 class _PlayerState extends State<Player> {
   bool _connected = false;
-	bool _loading = false;
+  bool _loading = false;
   CrossfadeState? crossfadeState;
   late ImageUri? currentTrackImageUri;
 
@@ -27,7 +27,7 @@ class _PlayerState extends State<Player> {
     } on PlatformException catch (e) {
       UiToast.toastErr("${e.code} ${e.message}");
     } on MissingPluginException {
-       UiToast.toastErr('not implemented');
+      UiToast.toastErr('not implemented');
     }
   }
 
@@ -37,7 +37,7 @@ class _PlayerState extends State<Player> {
     } on PlatformException catch (e) {
       UiToast.toastErr("${e.code} ${e.message}");
     } on MissingPluginException {
-       UiToast.toastErr('not implemented');
+      UiToast.toastErr('not implemented');
     }
   }
 
@@ -47,7 +47,7 @@ class _PlayerState extends State<Player> {
     } on PlatformException catch (e) {
       UiToast.toastErr("${e.code} ${e.message}");
     } on MissingPluginException {
-       UiToast.toastErr('not implemented');
+      UiToast.toastErr('not implemented');
     }
   }
 
@@ -59,7 +59,7 @@ class _PlayerState extends State<Player> {
     } on PlatformException catch (e) {
       UiToast.toastErr("${e.code} ${e.message}");
     } on MissingPluginException {
-       UiToast.toastErr('not implemented');
+      UiToast.toastErr('not implemented');
     }
   }
 
@@ -71,7 +71,7 @@ class _PlayerState extends State<Player> {
     } on PlatformException catch (e) {
       UiToast.toastErr("${e.code} ${e.message}");
     } on MissingPluginException {
-       UiToast.toastErr('not implemented');
+      UiToast.toastErr('not implemented');
     }
   }
 
@@ -81,7 +81,7 @@ class _PlayerState extends State<Player> {
     } on PlatformException catch (e) {
       UiToast.toastErr("${e.code} ${e.message}");
     } on MissingPluginException {
-       UiToast.toastErr('not implemented');
+      UiToast.toastErr('not implemented');
     }
   }
 
@@ -91,7 +91,7 @@ class _PlayerState extends State<Player> {
     } on PlatformException catch (e) {
       UiToast.toastErr("${e.code} ${e.message}");
     } on MissingPluginException {
-       UiToast.toastErr('not implemented');
+      UiToast.toastErr('not implemented');
     }
   }
 
@@ -101,7 +101,7 @@ class _PlayerState extends State<Player> {
     } on PlatformException catch (e) {
       UiToast.toastErr("${e.code} ${e.message}");
     } on MissingPluginException {
-       UiToast.toastErr('not implemented');
+      UiToast.toastErr('not implemented');
     }
   }
 
@@ -111,7 +111,7 @@ class _PlayerState extends State<Player> {
     } on PlatformException catch (e) {
       UiToast.toastErr("${e.code} ${e.message}");
     } on MissingPluginException {
-       UiToast.toastErr('not implemented');
+      UiToast.toastErr('not implemented');
     }
   }
 
@@ -121,7 +121,7 @@ class _PlayerState extends State<Player> {
     } on PlatformException catch (e) {
       UiToast.toastErr("${e.code} ${e.message}");
     } on MissingPluginException {
-       UiToast.toastErr('not implemented');
+      UiToast.toastErr('not implemented');
     }
   }
 
@@ -131,7 +131,7 @@ class _PlayerState extends State<Player> {
     } on PlatformException catch (e) {
       UiToast.toastErr("${e.code} ${e.message}");
     } on MissingPluginException {
-       UiToast.toastErr('not implemented');
+      UiToast.toastErr('not implemented');
     }
   }
 
@@ -141,15 +141,14 @@ class _PlayerState extends State<Player> {
     } on PlatformException catch (e) {
       UiToast.toastErr("${e.code} ${e.message}");
     } on MissingPluginException {
-       UiToast.toastErr('not implemented');
+      UiToast.toastErr('not implemented');
     }
   }
 
   @override
   void initState() {
     super.initState();
-		connectToSpotifyRemote();
-    //saat pake Url tinggal ganti setAsset jadi setUrl
+    connectToSpotifyRemote();
   }
 
   @override
@@ -169,16 +168,15 @@ class _PlayerState extends State<Player> {
             _connected = data.connected;
           }
           return Scaffold(
-            appBar: AppBar(
-              title: const Text('Player'),
-            ),
-            body: _sampleFlowWidget(context)
-          );
+              backgroundColor: Color.fromARGB(255, 11, 19, 43),
+              appBar: AppBar(
+                title: const Text('Player'),
+              ),
+              body: _sampleFlowWidget(context));
         },
       ),
     );
   }
-
 
   Widget _sampleFlowWidget(BuildContext context2) {
     return Stack(
@@ -221,80 +219,89 @@ class _PlayerState extends State<Player> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                ElevatedButton(
-                  onPressed: skipPrevious,
-                  style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.all(20),
-                  ),
-                  child: Icon(Icons.skip_previous),
-                ),
-                playerState.isPaused
-                    ? ElevatedButton(
-                        onPressed: resume,
-                        style: ElevatedButton.styleFrom(
-                          padding: EdgeInsets.all(20),
-                        ),
-                        child: Icon(Icons.play_arrow),
-                      )
-                    : ElevatedButton(
-                        onPressed: pause,
-                        style: ElevatedButton.styleFrom(
-                          padding: EdgeInsets.all(20),
-                        ),
-                        child: Icon(Icons.pause),
-                      ),
-                ElevatedButton(
-                  onPressed: skipNext,
-                  style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.all(20),
-                  ),
-                  child: Icon(Icons.skip_next),
-                ),
-              ],
-            ),
-            Text(
-                '${track.name} by ${track.artist.name} from the album ${track.album.name}'),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                    'Progress: ${playerState.playbackPosition}ms/${track.duration}ms'),
-              ],
-            ),
             _connected
                 ? spotifyImageWidget(track.imageUri)
                 : const Text('Connect to see an image...'),
+            // Text(
+            //   '${track.name} by ${track.artist.name} from the album ${track.album.name}',
+            //   style: TextStyle(color: Colors.white),
+            // ),
+            SizedBox(height: 20),
+            Text('${track.name}',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold)),
+            Text('${track.artist.name}',
+                style: TextStyle(color: Colors.white, fontSize: 18)),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //   children: [
+            //     Text(
+            //         'Progress: ${playerState.playbackPosition}ms/${track.duration}ms',
+            //         style: TextStyle(color: Colors.white)),
+            //   ],
+            // ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                IconButton(
+                  onPressed: skipPrevious,
+                  iconSize: 55,
+                  color: Colors.white,
+                  icon: Icon(Icons.skip_previous_rounded),
+                ),
+                playerState.isPaused
+                    ? IconButton(
+                        onPressed: resume,
+                        iconSize: 55,
+                        color: Colors.white,
+                        icon: Icon(Icons.play_arrow_rounded),
+                      )
+                    : IconButton(
+                        onPressed: pause,
+                        iconSize: 55,
+                        color: Colors.white,
+                        icon: Icon(Icons.pause_rounded),
+                      ),
+                IconButton(
+                  onPressed: skipNext,
+                  iconSize: 55,
+                  color: Colors.white,
+                  icon: Icon(Icons.skip_next_rounded),
+                ),
+              ],
+            ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Divider(),
                 const Text(
                   'Set Shuffle and Repeat',
-                  style: TextStyle(fontSize: 16),
+                  style: TextStyle(color: Colors.white, fontSize: 16),
                 ),
                 Row(
                   children: [
-                    const Text(
-                      'Repeat Mode:',
-                    ),
+                    const Text('Repeat Mode:',
+                        style: TextStyle(color: Colors.white)),
                     DropdownButton<RepeatMode>(
                       value: RepeatMode
                           .values[playerState.playbackOptions.repeatMode.index],
                       items: const [
                         DropdownMenuItem(
                           value: RepeatMode.off,
-                          child: Text('off'),
+                          child: Text('off',
+                              style: TextStyle(color: Colors.white)),
                         ),
                         DropdownMenuItem(
                           value: RepeatMode.track,
-                          child: Text('track'),
+                          child: Text('track',
+                              style: TextStyle(color: Colors.white)),
                         ),
                         DropdownMenuItem(
                           value: RepeatMode.context,
-                          child: Text('context'),
+                          child: Text('context',
+                              style: TextStyle(color: Colors.white)),
                         ),
                       ],
                       onChanged: (repeatMode) => setRepeatMode(repeatMode!),
@@ -303,7 +310,10 @@ class _PlayerState extends State<Player> {
                 ),
                 Row(
                   children: [
-                    const Text('Set shuffle: '),
+                    const Text(
+                      'Set shuffle: ',
+                      style: TextStyle(color: Colors.white),
+                    ),
                     Switch.adaptive(
                       value: playerState.playbackOptions.isShuffling,
                       onChanged: (bool shuffle) => setShuffle(
@@ -320,7 +330,6 @@ class _PlayerState extends State<Player> {
     );
   }
 
-
   Widget spotifyImageWidget(ImageUri image) {
     return FutureBuilder(
         future: SpotifySdk.getImage(
@@ -335,13 +344,17 @@ class _PlayerState extends State<Player> {
             return SizedBox(
               width: ImageDimension.large.value.toDouble(),
               height: ImageDimension.large.value.toDouble(),
-              child: const Center(child: Text('Error getting image')),
+              child: const Center(
+                  child: Text('Error getting image',
+                      style: TextStyle(color: Colors.white))),
             );
           } else {
             return SizedBox(
               width: ImageDimension.large.value.toDouble(),
               height: ImageDimension.large.value.toDouble(),
-              child: const Center(child: Text('Getting image...')),
+              child: const Center(
+                  child: Text('Getting image...',
+                      style: TextStyle(color: Colors.white))),
             );
           }
         });
