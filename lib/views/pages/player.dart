@@ -243,7 +243,7 @@ class _PlayerState extends State<Player> {
                     fontSize: 25,
                     fontWeight: FontWeight.bold)),
             Text('${track.artist.name}',
-                style: TextStyle(color: Colors.white, fontSize: 18)),
+                style: TextStyle(color: Colors.white60, fontSize: 18)),
             // Row(
             //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
             //   children: [
@@ -295,6 +295,7 @@ class _PlayerState extends State<Player> {
                     const Text('Repeat Mode:',
                         style: TextStyle(color: Colors.white)),
                     DropdownButton<RepeatMode>(
+                      dropdownColor: Colors.black87,
                       value: RepeatMode
                           .values[playerState.playbackOptions.repeatMode.index],
                       items: const [
@@ -306,12 +307,12 @@ class _PlayerState extends State<Player> {
                         DropdownMenuItem(
                           value: RepeatMode.track,
                           child: Text('track',
-                              style: TextStyle(color: Colors.black)),
+                              style: TextStyle(color: Colors.white)),
                         ),
                         DropdownMenuItem(
                           value: RepeatMode.context,
                           child: Text('context',
-                              style: TextStyle(color: Colors.black)),
+                              style: TextStyle(color: Colors.white)),
                         ),
                       ],
                       onChanged: (repeatMode) => setRepeatMode(repeatMode!),

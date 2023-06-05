@@ -2,7 +2,7 @@ part of '../models.dart';
 
 class SpotifyAlbum extends Equatable {
   final String? albumType;
-  final List<Artist>? artists;
+  final List<artist1.Artist>? artists;
   final String? href;
   final String? id;
   final List<Image>? images;
@@ -30,7 +30,7 @@ class SpotifyAlbum extends Equatable {
   factory SpotifyAlbum.fromJson(Map<String, dynamic> json) => SpotifyAlbum(
         albumType: json['album_type'] as String?,
         artists: (json['artists'] as List<dynamic>?)
-            ?.map((e) => Artist.fromJson(e as Map<String, dynamic>))
+            ?.map((e) => artist1.Artist.fromJson(e as Map<String, dynamic>))
             .toList(),
         href: json['href'] as String?,
         id: json['id'] as String?,

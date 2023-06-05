@@ -1,7 +1,7 @@
 part of 'widgets.dart';
 
 class PopularCard extends StatefulWidget {
-  final SpotifyTracklist listAlbum;
+  final SpotifyPlaylist listAlbum;
   const PopularCard(this.listAlbum);
 
   @override
@@ -11,7 +11,7 @@ class PopularCard extends StatefulWidget {
 class _PopularCardState extends State<PopularCard> {
   @override
   Widget build(BuildContext context) {
-    SpotifyTracklist dataPopular = widget.listAlbum;
+    SpotifyPlaylist dataPopular = widget.listAlbum;
     return Container(
       color: Colors.lightBlue,
       margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
@@ -20,7 +20,7 @@ class _PopularCardState extends State<PopularCard> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => TrackList(dataPopular.id)),
+                  builder: (context) => Player(dataPopular.track!.uri)),
             );
           },
           splashColor: Color.fromARGB(255, 143, 203, 255),
@@ -29,12 +29,12 @@ class _PopularCardState extends State<PopularCard> {
               height: 150,
               child: Stack(
                 children: [
-                  // CachedNetworkImage(
-                  //   imageUrl: '${dataPopular.artists[0].uri}',
-                  //   fit: BoxFit.fill,
-                  //   placeholder: (context, url) => UiLoading.loading(),
-                  //   errorWidget: (context, url, error) => Icon(Icons.error),
-                  // ),
+                  CachedNetworkImage(
+                    imageUrl: '${dataPopular.track!.album!.images![0].url}',
+                    fit: BoxFit.fill,
+                    placeholder: (context, url) => UiLoading.loading(),
+                    errorWidget: (context, url, error) => Icon(Icons.error),
+                  ),
                   Container(
                     padding: EdgeInsets.all(10.0),
                     alignment: Alignment.bottomCenter,
@@ -50,7 +50,7 @@ class _PopularCardState extends State<PopularCard> {
                       ),
                     ),
                     child: Text(
-                      dataPopular.name ?? '',
+                      dataPopular.track!.name ?? '',
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 12.0,

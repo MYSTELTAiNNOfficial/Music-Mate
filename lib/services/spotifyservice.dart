@@ -31,19 +31,20 @@ class SpotifyService {
     return data;
   }
 
-  static Future<List<SpotifyTracklist>> getPopularbyAlbumId(
+  static Future<List<SpotifyPlaylist>> getPopularbyAlbumId(
       token, albumId) async {
-    var url = Uri.parse("${Const.BASE_URL}playlists/${albumId}");
+    var url = Uri.parse("${Const.BASE_URL}playlists/${albumId}/tracks");
     var response =
         await http.get(url, headers: {"Authorization": "Bearer $token"});
 
-    List<SpotifyTracklist> data = [];
+    List<SpotifyPlaylist> data = [];
     print(token);
     var json = jsonDecode(response.body);
     print(json);
-    data = (json['tracks']['items'] as List)
-        .map((e) => SpotifyTracklist.fromJson(e))
+    data = (json['items'] as List)
+        .map((e) => SpotifyPlaylist.fromJson(e))
         .toList();
+    print(data);
     return data;
   }
 
@@ -63,8 +64,7 @@ class SpotifyService {
   // }
 
   static Future<List<SpotifyPlaylist>> getTodayPlaylist(token, todayId) async {
-    var url = Uri.parse(
-        "${Const.BASE_URL}playlists/${todayId}/tracks?offset=0&limit=100&locale=id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7,es;q=0.6");
+    var url = Uri.parse("${Const.BASE_URL}playlists/${todayId}/tracks");
     var response =
         await http.get(url, headers: {"Authorization": "Bearer $token"});
 
@@ -72,7 +72,7 @@ class SpotifyService {
     print(token);
     var json = jsonDecode(response.body);
     print(json);
-    data = (json['tracks']['items'] as List)
+    data = (json['items'] as List)
         .map((e) => SpotifyPlaylist.fromJson(e))
         .toList();
     return data;
