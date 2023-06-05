@@ -11,6 +11,9 @@ class _HomeState extends State<Home> {
   bool isLoading = false;
   SpotifyBearer token = new SpotifyBearer();
   List<SpotifyAlbum> newRelease = [];
+  List<SpotifyTracklist> popular = [];
+  // List<SpotifyArtist> artist = [];
+  List<SpotifyPlaylist> todayPlaylist = [];
 
   Future<SpotifyBearer> getToken() async {
     var test = await SpotifyService.getAccessToken();
@@ -18,6 +21,9 @@ class _HomeState extends State<Home> {
       token = test;
     });
     getNewRelease();
+    getPopular();
+    // getArtist();
+    getTodayPlaylist();
     return token;
   }
 
@@ -60,6 +66,36 @@ class _HomeState extends State<Home> {
     return newRelease;
   }
 
+  Future<List<SpotifyTracklist>> getPopular() async {
+    print(token.accessToken);
+    dynamic albumId = "37i9dQZEVXbMDoHDwVN2tF";
+    await SpotifyService.getPopularbyAlbumId(token.accessToken, albumId)
+        .then((value) {
+      if (value != null) {
+        setState(() {
+          popular = value;
+        });
+      }
+    });
+    connectToSpotifyRemote();
+    return popular;
+  }
+
+  Future<List<SpotifyPlaylist>> getTodayPlaylist() async {
+    print(token.accessToken);
+    dynamic todayId = "37i9dQZF1DXcBWIGoYBM5M";
+    await SpotifyService.getTodayPlaylist(token.accessToken, todayId)
+        .then((value) {
+      if (value != null) {
+        setState(() {
+          todayPlaylist = value;
+        });
+      }
+    });
+    connectToSpotifyRemote();
+    return todayPlaylist;
+  }
+
   @override
   void initState() {
     isLoading = true;
@@ -76,45 +112,114 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color.fromARGB(255, 11, 19, 43),
-        appBar: AppBar(
-          title: Text('Home'),
-        ),
-        body: isLoading
-            ? UiLoading.loading()
-            : Column(
-                textDirection: TextDirection.ltr,
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                    child: Text("Popular Albums",
-                        style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            decoration: TextDecoration.underline)),
+      resizeToAvoidBottomInset: false,
+      backgroundColor: Color.fromARGB(255, 11, 19, 43),
+      body: isLoading
+          ? UiLoading.loading()
+          : Column(
+              textDirection: TextDirection.ltr,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: EdgeInsets.only(top: 32, bottom: 8),
+                  alignment: Alignment.center,
+                  child: Text(
+                    "Home",
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 111, 255, 233),
+                      fontSize: 28,
+                      fontWeight: FontWeight.w900,
+                    ),
                   ),
-                  SizedBox(
-                    height: 200,
-                    child: newRelease.isEmpty
-                        ? const Align(
-                            alignment: Alignment.center,
-                            child: Text("Ups, tidak ada data"))
-                        : ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: newRelease.length,
-                            itemBuilder: ((context, index) {
-                              return LazyLoadingList(
-                                  initialSizeOfItems: 10,
-                                  loadMore: () {},
-                                  child: AlbumCard(newRelease[index]),
-                                  index: index,
-                                  hasMore: true);
-                            })),
-                  ),
-                ],
-              ));
+                ),
+                Container(
+                  padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                  child: Text("New Releases",
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          decoration: TextDecoration.underline)),
+                ),
+                SizedBox(
+                  height: 150,
+                  child: newRelease.isEmpty
+                      ? const Align(
+                          alignment: Alignment.center,
+                          child: Text("Ups, tidak ada data"))
+                      : ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: newRelease.length,
+                          itemBuilder: ((context, index) {
+                            return LazyLoadingList(
+                                initialSizeOfItems: 10,
+                                loadMore: () {},
+                                child: AlbumCard(newRelease[index]),
+                                index: index,
+                                hasMore: true);
+                          })),
+                ),
+                SizedBox(height: 16),
+                Container(
+                  padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                  child: Text("Popular Album",
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          decoration: TextDecoration.underline)),
+                ),
+                SizedBox(
+                  height: 150,
+                  child: popular.isEmpty
+                      ? const Align(
+                          alignment: Alignment.center,
+                          child: Text("Ups, tidak ada data",
+                              style: TextStyle(color: Colors.white)))
+                      : ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: popular.length,
+                          itemBuilder: ((context, index) {
+                            return LazyLoadingList(
+                                initialSizeOfItems: 10,
+                                loadMore: () {},
+                                child: PopularCard(popular[index]),
+                                index: index,
+                                hasMore: true);
+                          })),
+                ),
+                SizedBox(height: 16),
+                Container(
+                  padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                  child: Text("Today Top Hits",
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          decoration: TextDecoration.underline)),
+                ),
+                SizedBox(
+                  height: 150,
+                  child: todayPlaylist.isEmpty
+                      ? const Align(
+                          alignment: Alignment.center,
+                          child: Text("Ups, tidak ada data",
+                              style: TextStyle(color: Colors.white)))
+                      : ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: todayPlaylist.length,
+                          itemBuilder: ((context, index) {
+                            return LazyLoadingList(
+                                initialSizeOfItems: 10,
+                                loadMore: () {},
+                                child: TodayPlaylistCard(todayPlaylist[index]),
+                                index: index,
+                                hasMore: true);
+                          })),
+                ),
+              ],
+            ),
+    );
   }
 }

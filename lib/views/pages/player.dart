@@ -159,6 +159,7 @@ class _PlayerState extends State<Player> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: StreamBuilder<ConnectionStatus>(
         stream: SpotifySdk.subscribeConnectionStatus(),
         builder: (context, snapshot) {
@@ -169,9 +170,6 @@ class _PlayerState extends State<Player> {
           }
           return Scaffold(
               backgroundColor: Color.fromARGB(255, 11, 19, 43),
-              appBar: AppBar(
-                title: const Text('Player'),
-              ),
               body: _sampleFlowWidget(context));
         },
       ),
@@ -219,6 +217,18 @@ class _PlayerState extends State<Player> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+            Container(
+              padding: EdgeInsets.only(top: 12, bottom: 8),
+              alignment: Alignment.center,
+              child: Text(
+                "Player",
+                style: TextStyle(
+                  color: Color.fromARGB(255, 111, 255, 233),
+                  fontSize: 28,
+                  fontWeight: FontWeight.w900,
+                ),
+              ),
+            ),
             _connected
                 ? spotifyImageWidget(track.imageUri)
                 : const Text('Connect to see an image...'),
@@ -296,12 +306,12 @@ class _PlayerState extends State<Player> {
                         DropdownMenuItem(
                           value: RepeatMode.track,
                           child: Text('track',
-                              style: TextStyle(color: Colors.white)),
+                              style: TextStyle(color: Colors.black)),
                         ),
                         DropdownMenuItem(
                           value: RepeatMode.context,
                           child: Text('context',
-                              style: TextStyle(color: Colors.white)),
+                              style: TextStyle(color: Colors.black)),
                         ),
                       ],
                       onChanged: (repeatMode) => setRepeatMode(repeatMode!),
