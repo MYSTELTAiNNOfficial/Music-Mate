@@ -6,6 +6,8 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 
 import '../models/models.dart';
+import '../models/spotify_artist/spotify_artist.dart';
+import '../models/spotify_playlist/spotify_playlist.dart';
 import '../shared/shared.dart';
 
 part 'authservice.dart';
