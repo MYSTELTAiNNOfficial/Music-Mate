@@ -221,12 +221,12 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ),
                           ),
-                          SizedBox(height: 8),
+                          SizedBox(height: 12),
                           Divider(thickness: 1, color: Colors.white),
-                          SizedBox(height: 8),
+                          SizedBox(height: 12),
                           Container(
                             width: double.infinity,
-                            padding: EdgeInsets.fromLTRB(48, 4, 48, 4),
+                            padding: EdgeInsets.fromLTRB(28, 16, 28, 16),
                             child: ElevatedButton.icon(
                               onPressed: () async {
                                 // Handle sign in with Google
@@ -247,7 +247,7 @@ class _LoginPageState extends State<LoginPage> {
                                 elevation: 5,
                                 textStyle: TextStyle(fontSize: 16),
                                 shadowColor: Colors.cyan[200],
-                                padding: EdgeInsets.fromLTRB(24, 10, 24, 10),
+                                padding: EdgeInsets.fromLTRB(18, 12, 18, 12),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(8),
                                 ),
@@ -256,7 +256,7 @@ class _LoginPageState extends State<LoginPage> {
                                 'Sign In with Google',
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 20,
+                                  fontSize: 18,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),

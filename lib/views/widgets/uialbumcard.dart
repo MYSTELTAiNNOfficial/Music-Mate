@@ -24,8 +24,8 @@ class _AlbumCardState extends State<AlbumCard> {
           },
           splashColor: Color.fromARGB(255, 143, 203, 255),
           child: SizedBox(
-              width: 200,
-              height: 200,
+              width: 150,
+              height: 150,
               child: Stack(
                 children: [
                   CachedNetworkImage(
