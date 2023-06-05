@@ -11,7 +11,7 @@ class _HomeState extends State<Home> {
   bool isLoading = false;
   SpotifyBearer token = new SpotifyBearer();
   List<SpotifyAlbum> newRelease = [];
-  List<SpotifyTracklist> popular = [];
+  List<SpotifyPlaylist> popular = [];
   // List<SpotifyArtist> artist = [];
   List<SpotifyPlaylist> todayPlaylist = [];
 
@@ -66,7 +66,7 @@ class _HomeState extends State<Home> {
     return newRelease;
   }
 
-  Future<List<SpotifyTracklist>> getPopular() async {
+  Future<List<SpotifyPlaylist>> getPopular() async {
     print(token.accessToken);
     dynamic albumId = "37i9dQZEVXbMDoHDwVN2tF";
     await SpotifyService.getPopularbyAlbumId(token.accessToken, albumId)
@@ -74,6 +74,7 @@ class _HomeState extends State<Home> {
       if (value != null) {
         setState(() {
           popular = value;
+          print(popular);
         });
       }
     });
@@ -112,114 +113,153 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      backgroundColor: Color.fromARGB(255, 11, 19, 43),
-      body: isLoading
-          ? UiLoading.loading()
-          : Column(
-              textDirection: TextDirection.ltr,
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  padding: EdgeInsets.only(top: 32, bottom: 8),
-                  alignment: Alignment.center,
-                  child: Text(
-                    "Home",
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 111, 255, 233),
-                      fontSize: 28,
-                      fontWeight: FontWeight.w900,
+        resizeToAvoidBottomInset: false,
+        backgroundColor: Color.fromARGB(255, 11, 19, 43),
+        body: isLoading
+            ? UiLoading.loading()
+            : SingleChildScrollView(
+                child: Column(
+                  textDirection: TextDirection.ltr,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.only(top: 30),
+                      alignment: Alignment.center,
+                      child: Text(
+                        "Home",
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 111, 255, 233),
+                          fontSize: 28,
+                          fontWeight: FontWeight.w900,
+                        ),
+                      ),
                     ),
-                  ),
+                    Container(
+                      padding: EdgeInsets.only(left: 8),
+                      child: Row(
+                        children: <Widget>[
+                          CircleAvatar(
+                            radius: 18,
+                            backgroundColor: Color.fromARGB(255, 111, 255, 233),
+                            child: CircleAvatar(
+                              radius: 16,
+                              backgroundImage: NetworkImage(
+                                "${AuthService.auth.currentUser!.photoURL}",
+                              ),
+                            ),
+                          ),
+                          new Flexible(
+                            child: new TextField(
+                              readOnly: true,
+                              enabled: false,
+                              decoration: InputDecoration(
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.cyanAccent,
+                                    width: 5,
+                                  ),
+                                ),
+                                border: OutlineInputBorder(),
+                                labelStyle: TextStyle(
+                                  color: Color.fromARGB(255, 111, 255, 233),
+                                  fontSize: 20,
+                                ),
+                                labelText: AuthService.username ?? '',
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
+                      child: Text("New Releases",
+                          style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              decoration: TextDecoration.underline)),
+                    ),
+                    SizedBox(
+                      height: 150,
+                      child: newRelease.isEmpty
+                          ? const Align(
+                              alignment: Alignment.center,
+                              child: Text("Ups, tidak ada data"))
+                          : ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: newRelease.length,
+                              itemBuilder: ((context, index) {
+                                return LazyLoadingList(
+                                    initialSizeOfItems: 10,
+                                    loadMore: () {},
+                                    child: AlbumCard(newRelease[index]),
+                                    index: index,
+                                    hasMore: true);
+                              })),
+                    ),
+                    SizedBox(height: 16),
+                    Container(
+                      padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
+                      child: Text("Popular Album",
+                          style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              decoration: TextDecoration.underline)),
+                    ),
+                    SizedBox(
+                      height: 150,
+                      child: popular.isEmpty
+                          ? const Align(
+                              alignment: Alignment.center,
+                              child: Text("Ups, tidak ada data",
+                                  style: TextStyle(color: Colors.white)))
+                          : ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: popular.length,
+                              itemBuilder: ((context, index) {
+                                return LazyLoadingList(
+                                    initialSizeOfItems: 10,
+                                    loadMore: () {},
+                                    child: PopularCard(popular[index]),
+                                    index: index,
+                                    hasMore: true);
+                              })),
+                    ),
+                    SizedBox(height: 16),
+                    Container(
+                      padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
+                      child: Text("Today Top Hits",
+                          style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              decoration: TextDecoration.underline)),
+                    ),
+                    SizedBox(
+                      height: 150,
+                      child: todayPlaylist.isEmpty
+                          ? const Align(
+                              alignment: Alignment.center,
+                              child: Text("Ups, tidak ada data",
+                                  style: TextStyle(color: Colors.white)))
+                          : ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: todayPlaylist.length,
+                              itemBuilder: ((context, index) {
+                                return LazyLoadingList(
+                                    initialSizeOfItems: 10,
+                                    loadMore: () {},
+                                    child:
+                                        TodayPlaylistCard(todayPlaylist[index]),
+                                    index: index,
+                                    hasMore: true);
+                              })),
+                    ),
+                  ],
                 ),
-                Container(
-                  padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                  child: Text("New Releases",
-                      style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          decoration: TextDecoration.underline)),
-                ),
-                SizedBox(
-                  height: 150,
-                  child: newRelease.isEmpty
-                      ? const Align(
-                          alignment: Alignment.center,
-                          child: Text("Ups, tidak ada data"))
-                      : ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: newRelease.length,
-                          itemBuilder: ((context, index) {
-                            return LazyLoadingList(
-                                initialSizeOfItems: 10,
-                                loadMore: () {},
-                                child: AlbumCard(newRelease[index]),
-                                index: index,
-                                hasMore: true);
-                          })),
-                ),
-                SizedBox(height: 16),
-                Container(
-                  padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                  child: Text("Popular Album",
-                      style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          decoration: TextDecoration.underline)),
-                ),
-                SizedBox(
-                  height: 150,
-                  child: popular.isEmpty
-                      ? const Align(
-                          alignment: Alignment.center,
-                          child: Text("Ups, tidak ada data",
-                              style: TextStyle(color: Colors.white)))
-                      : ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: popular.length,
-                          itemBuilder: ((context, index) {
-                            return LazyLoadingList(
-                                initialSizeOfItems: 10,
-                                loadMore: () {},
-                                child: PopularCard(popular[index]),
-                                index: index,
-                                hasMore: true);
-                          })),
-                ),
-                SizedBox(height: 16),
-                Container(
-                  padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                  child: Text("Today Top Hits",
-                      style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          decoration: TextDecoration.underline)),
-                ),
-                SizedBox(
-                  height: 150,
-                  child: todayPlaylist.isEmpty
-                      ? const Align(
-                          alignment: Alignment.center,
-                          child: Text("Ups, tidak ada data",
-                              style: TextStyle(color: Colors.white)))
-                      : ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: todayPlaylist.length,
-                          itemBuilder: ((context, index) {
-                            return LazyLoadingList(
-                                initialSizeOfItems: 10,
-                                loadMore: () {},
-                                child: TodayPlaylistCard(todayPlaylist[index]),
-                                index: index,
-                                hasMore: true);
-                          })),
-                ),
-              ],
-            ),
-    );
+              ));
   }
 }

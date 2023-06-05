@@ -21,8 +21,6 @@ import 'package:spotify_sdk/models/player_context.dart';
 import 'package:spotify_sdk/models/player_state.dart';
 import 'package:spotify_sdk/spotify_sdk.dart';
 
-import '../../models/spotify_artist/spotify_artist.dart';
-import '../../models/spotify_playlist/spotify_playlist.dart';
 import '../../shared/shared.dart';
 import '../widgets/widgets.dart';
 import '../../services/services.dart';

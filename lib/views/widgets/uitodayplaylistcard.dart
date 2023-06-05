@@ -19,7 +19,8 @@ class _TodayPlaylistCardState extends State<TodayPlaylistCard> {
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => TrackList(dataTrack.id)),
+              MaterialPageRoute(
+                  builder: (context) => Player(dataTrack.track!.uri)),
             );
           },
           splashColor: Color.fromARGB(255, 143, 203, 255),
@@ -28,8 +29,15 @@ class _TodayPlaylistCardState extends State<TodayPlaylistCard> {
               height: 150,
               child: Stack(
                 children: [
+                  Text(
+                    dataTrack.track!.id ?? '',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 12.0,
+                        overflow: TextOverflow.ellipsis),
+                  ),
                   CachedNetworkImage(
-                    imageUrl: '${dataTrack.images![0].url}',
+                    imageUrl: '${dataTrack.track!.album!.images![0].url}',
                     fit: BoxFit.fill,
                     placeholder: (context, url) => UiLoading.loading(),
                     errorWidget: (context, url, error) => Icon(Icons.error),
@@ -49,7 +57,7 @@ class _TodayPlaylistCardState extends State<TodayPlaylistCard> {
                       ),
                     ),
                     child: Text(
-                      dataTrack.name ?? '',
+                      dataTrack.track!.name ?? '',
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 12.0,

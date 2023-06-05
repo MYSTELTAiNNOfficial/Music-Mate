@@ -9,8 +9,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:spotify_sdk/models/image_uri.dart';
 import 'package:spotify_sdk/spotify_sdk.dart';
 
-import '../../models/spotify_artist/spotify_artist.dart';
-import '../../models/spotify_playlist/spotify_playlist.dart';
 import '../pages/pages.dart';
 
 part 'uiloading.dart';

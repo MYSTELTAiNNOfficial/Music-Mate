@@ -1,10 +1,4 @@
-import 'dart:convert';
-
-import 'package:equatable/equatable.dart';
-
-import 'external_urls.dart';
-import 'followers.dart';
-import 'image.dart';
+part of '../models.dart';
 
 class SpotifyArtist extends Equatable {
   final ExternalUrls? externalUrls;
@@ -12,7 +6,7 @@ class SpotifyArtist extends Equatable {
   final List<String>? genres;
   final String? href;
   final String? id;
-  final List<Image>? images;
+  final List<image1.Image>? images;
   final String? name;
   final int? popularity;
   final String? type;
@@ -43,7 +37,7 @@ class SpotifyArtist extends Equatable {
         href: data['href'] as String?,
         id: data['id'] as String?,
         images: (data['images'] as List<dynamic>?)
-            ?.map((e) => Image.fromMap(e as Map<String, dynamic>))
+            ?.map((e) => image1.Image.fromMap(e as Map<String, dynamic>))
             .toList(),
         name: data['name'] as String?,
         popularity: data['popularity'] as int?,
@@ -64,14 +58,14 @@ class SpotifyArtist extends Equatable {
         'uri': uri,
       };
 
-  /// `dart:convert`
+  /// dart:convert
   ///
   /// Parses the string and returns the resulting Json object as [SpotifyArtist].
   factory SpotifyArtist.fromJson(String data) {
     return SpotifyArtist.fromMap(json.decode(data) as Map<String, dynamic>);
   }
 
-  /// `dart:convert`
+  /// dart:convert
   ///
   /// Converts [SpotifyArtist] to a JSON string.
   String toJson() => json.encode(toMap());
